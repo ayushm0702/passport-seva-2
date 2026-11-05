@@ -1,0 +1,16 @@
+const r = require('express').Router();
+const c = require('../controllers/adminController');
+const { authenticate, authorize } = require('../middleware/auth');
+r.use(authenticate, authorize('admin'));
+r.get('/stats', c.stats);
+r.get('/users', c.users);
+r.patch('/users/:id/active', c.setUserActive);
+r.get('/applications', c.applications);
+r.get('/officers', c.officers);
+r.get('/slots', c.slots);
+r.get('/applications/:id', c.applicationDetail);
+r.post('/applications/:id/assign', c.assign);
+r.patch('/applications/:id/status', c.updateStatus);
+r.post('/slots', c.addSlot);
+r.delete('/slots/:id', c.deleteSlot);
+module.exports = r;
